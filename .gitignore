@@ -1,0 +1,25 @@
+# Ansible artifacts
+*.retry
+
+# Python
+*.pyc
+__pycache__/
+
+# Vagrant
+.vagrant/
+
+# Antora build output
+node_modules/
+www/
+package-lock.json
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

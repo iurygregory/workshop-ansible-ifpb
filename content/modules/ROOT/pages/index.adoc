@@ -1,0 +1,72 @@
+= Workshop - Ansible na pratica: O simples que resolve
+
+Bem-vindo ao workshop de Ansible do IFPB! Neste workshop voce vai aprender a usar o Ansible para automatizar a instalacao e configuracao do nginx em uma maquina virtual CentOS Stream 10.
+
+== O que este Workshop Cobre
+
+* Conceitos basicos de Ansible (inventario, playbooks, roles)
+* Instalacao e configuracao do nginx via Ansible
+* Controle de versao do nginx (repositorio padrao vs. oficial)
+* Configuracao de porta customizada
+* Interacao com firewalld e SELinux
+* Verificacao automatica de acessibilidade
+
+== Para Quem e Este Workshop
+
+Estudantes de computacao e tecnologia que desejam aprender automacao de infraestrutura com Ansible. Nao e necessario conhecimento previo de Ansible.
+
+== Estrutura do Workshop
+
+[cols="1,2,4",options="header"]
+|===
+|Modulo |Titulo |Descricao
+
+|01
+|xref:01-setup.adoc[Preparando o Ambiente]
+|Configuracao das VMs e instalacao do Ansible
+
+|02
+|xref:02-inventory.adoc[Inventario Ansible]
+|Como configurar o inventario para conectar na segunda VM
+
+|03
+|xref:03-playbook.adoc[Executando o Playbook]
+|Executando o playbook principal para instalar o nginx
+
+|04
+|xref:04-customization.adoc[Personalizando o nginx]
+|Alterando versao e porta do nginx e observando o resultado
+|===
+
+== Ambiente
+
+Cada estudante tem acesso a duas maquinas virtuais:
+
+[cols="1,2,3",options="header"]
+|===
+|VM |Funcao |Descricao
+
+|VM 1
+|**Control Node**
+|Onde voce executa os comandos Ansible
+
+|VM 2
+|**Managed Node**
+|O servidor que vai rodar o nginx
+|===
+
+[mermaid]
+....
+graph LR
+    A["VM1 - Control Node"] -->|SSH| B["VM2 - Managed Node"]
+    B -->|"porta 80/custom"| C["Browser do Host"]
+....
+
+== Como Usar Este Material
+
+Este workshop e auto-guiado. Siga os modulos na ordem listada na barra de navegacao a esquerda. Cada modulo contem instrucoes passo-a-passo e exemplos praticos.
+
+[TIP]
+====
+Use o menu de navegacao a esquerda para avancar entre os modulos. Os botoes "Previous" e "Next" no final de cada pagina tambem ajudam na navegacao.
+====

@@ -1,0 +1,10 @@
+name: workshop-ansible-ifpb
+title: "Workshop - Ansible na prática: O simples que resolve"
+version: ~
+nav:
+  - modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    experimental: true
+    page-pagination: true

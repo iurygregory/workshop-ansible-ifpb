@@ -1,0 +1,16 @@
+---
+# -------------------------------------------------------
+# Workshop variables for the webservers group
+# -------------------------------------------------------
+
+# Nginx version control
+# Set to true to add the official nginx.org stable repository,
+# which provides the latest stable nginx version.
+# When false (default), nginx is installed from the CentOS Stream 10
+# AppStream repository (minimum / base version).
+nginx_enable_official_repo: false
+
+# Port on which nginx will listen.
+# Change this to any port number you like (e.g. 8080).
+# Default is 80.
+nginx_port: 80

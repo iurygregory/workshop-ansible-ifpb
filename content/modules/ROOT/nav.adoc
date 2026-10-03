@@ -1,0 +1,7 @@
+* xref:index.adoc[Bem-vindo]
+
+.Workshop
+* xref:01-setup.adoc[Preparando o Ambiente]
+* xref:02-inventory.adoc[Inventario Ansible]
+* xref:03-playbook.adoc[Executando o Playbook]
+* xref:04-customization.adoc[Personalizando o nginx]

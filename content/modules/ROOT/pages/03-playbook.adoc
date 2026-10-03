@@ -1,0 +1,73 @@
+= Executando o Playbook
+
+Agora que o inventario esta configurado, vamos executar o playbook para instalar e configurar o nginx.
+
+== O que o Playbook Faz
+
+O playbook `playbooks/site.yml` aplica a role `nginx`, que executa as seguintes tarefas:
+
+[mermaid]
+....
+graph TD
+    A["Inicio"] --> B["Configurar repositorio nginx"]
+    B --> C["Instalar nginx"]
+    C --> D["Detectar versoes"]
+    D --> E["Copiar imagens"]
+    E --> F["Aplicar templates"]
+    F --> G["Configurar SELinux"]
+    G --> H["Configurar Firewall"]
+    H --> I["Iniciar nginx"]
+    I --> J["Verificar acesso"]
+....
+
+== Executando
+
+Na VM 1, dentro do diretorio do projeto:
+
+[source,bash]
+----
+ansible-playbook playbooks/site.yml
+----
+
+[TIP]
+====
+Para ver mais detalhes durante a execucao, use o modo verboso:
+
+[source,bash]
+----
+ansible-playbook playbooks/site.yml -v
+----
+====
+
+== Verificando o Resultado
+
+Apos a execucao com sucesso, abra o navegador no computador host e acesse:
+
+[source]
+----
+http://<IP_DA_VM2>:80
+----
+
+Voce deve ver a pagina de boas-vindas com a imagem padrao.
+
+[NOTE]
+====
+Substitua `<IP_DA_VM2>` pelo IP da sua VM 2 (o mesmo que voce colocou no inventario).
+====
+
+== Entendendo a Saida
+
+O Ansible mostra o resultado de cada tarefa:
+
+* `ok` -- a tarefa foi executada e nada mudou
+* `changed` -- a tarefa fez uma alteracao no sistema
+* `skipping` -- a tarefa foi pulada (condicao nao atendida)
+* `failed` -- a tarefa falhou
+
+No final, voce vera um resumo:
+
+[source]
+----
+PLAY RECAP *************
+vm2  : ok=15  changed=8  unreachable=0  failed=0  skipped=2  rescued=0  ignored=0
+----

@@ -1,0 +1,12 @@
+---
+# =========================================================
+#  Main playbook – Install and configure nginx
+#  Target: webservers group (the second VM)
+# =========================================================
+
+- name: Configure nginx on webservers
+  hosts: webservers
+  become: true
+
+  roles:
+    - nginx

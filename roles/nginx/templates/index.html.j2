@@ -1,0 +1,67 @@
+{# {{ ansible_managed }} #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansible Workshop - IFPB</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .warning {
+            font-size: 1.5rem;
+            color: #c0392b;
+            background: #fdecea;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #e74c3c;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+{% if not nginx_custom_port | bool %}
+        <h1>Welcome to the Ansible Workshop!</h1>
+        <p>nginx is running on the default port ({{ nginx_port }}).</p>
+        <img src="default.png" alt="Default configuration">
+{% elif not nginx_is_latest | bool %}
+        <div class="warning">
+            <h1>Almost there!</h1>
+            <p>
+                nginx is running on custom port <strong>{{ nginx_port }}</strong>,
+                but you are using version <strong>{{ nginx_installed_version }}</strong>.
+            </p>
+            <p>
+                The latest available version is <strong>{{ nginx_latest_version }}</strong>.
+                Please update your configuration to install the latest version of nginx!
+            </p>
+        </div>
+{% else %}
+        <h1>Congratulations!</h1>
+        <p>
+            nginx <strong>{{ nginx_installed_version }}</strong> is running on
+            custom port <strong>{{ nginx_port }}</strong> &mdash; you nailed it!
+        </p>
+        <img src="latest.png" alt="Latest version with custom port">
+{% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+---
+# Whether to enable the official nginx.org stable repository.
+# false = install from CentOS Stream 10 AppStream (minimum version).
+# true  = add the nginx.org repo and install the latest stable version.
+nginx_enable_official_repo: false
+
+# Port on which nginx will listen (default: 80).
+nginx_port: 80

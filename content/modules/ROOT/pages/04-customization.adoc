@@ -1,0 +1,88 @@
+= Personalizando o nginx
+
+Agora vem a parte divertida! Vamos alterar a versao e a porta do nginx e observar como a pagina web muda.
+
+== Cenario 1: Porta Padrao (80) + Versao Padrao
+
+Este e o estado inicial. A pagina mostra a imagem `default.png`.
+
+[source,bash]
+----
+ansible-playbook playbooks/site.yml
+----
+
+Acesse: `http://<IP_DA_VM2>:80`
+
+Resultado esperado: imagem padrao.
+
+== Cenario 2: Porta Customizada + Versao Padrao
+
+Mude a porta para 8080:
+
+[source,bash]
+----
+ansible-playbook playbooks/site.yml -e nginx_port=8080
+----
+
+Acesse: `http://<IP_DA_VM2>:8080`
+
+Resultado esperado: mensagem de aviso pedindo para instalar a versao mais recente do nginx.
+
+[NOTE]
+====
+O playbook configura automaticamente o SELinux e o firewall para permitir a nova porta.
+====
+
+== Cenario 3: Porta Customizada + Versao Mais Recente
+
+Agora ative o repositorio oficial do nginx.org e use uma porta customizada:
+
+[source,bash]
+----
+ansible-playbook playbooks/site.yml -e nginx_enable_official_repo=true -e nginx_port=8080
+----
+
+Acesse: `http://<IP_DA_VM2>:8080`
+
+Resultado esperado: mensagem de parabens com a imagem `latest.png`.
+
+== Resumo do Comportamento da Pagina
+
+[cols="2,2,3",options="header"]
+|===
+|Porta |Versao nginx |Pagina
+
+|Padrao (80)
+|Qualquer
+|Imagem `default.png`
+
+|Customizada
+|Nao e a mais recente
+|Mensagem pedindo atualizacao
+
+|Customizada
+|Mais recente
+|Imagem `latest.png`
+|===
+
+[mermaid]
+....
+graph TD
+    A{"Porta customizada?"} -->|Nao| B["Mostra default.png"]
+    A -->|Sim| C{"nginx e a versao mais recente?"}
+    C -->|Nao| D["Mostra aviso de atualizacao"]
+    C -->|Sim| E["Mostra latest.png"]
+....
+
+== Desafio
+
+Tente as seguintes combinacoes e observe o resultado:
+
+1. Volte para a porta padrao mantendo o repositorio oficial
+2. Use a porta 9090 sem o repositorio oficial
+3. Use a porta 443 com o repositorio oficial
+
+[TIP]
+====
+Voce pode editar as variaveis diretamente no arquivo `inventory/group_vars/webservers.yml` em vez de passar pela linha de comando com `-e`.
+====

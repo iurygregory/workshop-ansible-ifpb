@@ -1,0 +1,194 @@
+---
+# =========================================================
+#  Nginx role – tasks/main.yml
+#  Target OS: CentOS Stream 10
+# =========================================================
+
+# ---------------------------------------------------------
+# 1. Official nginx.org repository (conditional)
+# ---------------------------------------------------------
+- name: Import nginx.org GPG key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://nginx.org/keys/nginx_signing.key
+  when: nginx_enable_official_repo | bool
+
+- name: Add official nginx.org stable repository
+  ansible.builtin.yum_repository:
+    name: nginx-stable
+    description: nginx stable repo (nginx.org)
+    baseurl: https://nginx.org/packages/centos/$releasever/$basearch/
+    gpgcheck: true
+    enabled: true
+    gpgkey: https://nginx.org/keys/nginx_signing.key
+  when: nginx_enable_official_repo | bool
+
+- name: Disable official nginx.org repository if not requested
+  ansible.builtin.yum_repository:
+    name: nginx-stable
+    state: absent
+  when: not (nginx_enable_official_repo | bool)
+
+# ---------------------------------------------------------
+# 2. Install nginx
+# ---------------------------------------------------------
+- name: Install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+
+# ---------------------------------------------------------
+# 3. Detect installed nginx version
+# ---------------------------------------------------------
+- name: Get installed nginx version
+  ansible.builtin.command:
+    cmd: rpm -q nginx --queryformat '%{VERSION}'
+  register: nginx_installed_version_raw
+  changed_when: false
+
+- name: Set fact – installed nginx version
+  ansible.builtin.set_fact:
+    nginx_installed_version: "{{ nginx_installed_version_raw.stdout }}"
+
+# ---------------------------------------------------------
+# 4. Detect latest available nginx version
+# ---------------------------------------------------------
+- name: Query latest available nginx version from repos
+  ansible.builtin.shell:
+    cmd: >
+      dnf list available nginx --showduplicates 2>/dev/null
+      | awk '/^nginx\./ {print $2}'
+      | sort -V
+      | tail -1
+      | sed 's/-.*//'
+  register: nginx_latest_version_raw
+  changed_when: false
+  failed_when: false
+
+- name: Set fact – latest available nginx version
+  ansible.builtin.set_fact:
+    nginx_latest_version: >-
+      {{ nginx_latest_version_raw.stdout | default(nginx_installed_version, true) }}
+
+# ---------------------------------------------------------
+# 5. Set derived facts
+# ---------------------------------------------------------
+- name: Set fact – nginx_is_latest
+  ansible.builtin.set_fact:
+    nginx_is_latest: "{{ nginx_installed_version is version(nginx_latest_version, '>=') }}"
+
+- name: Set fact – nginx_custom_port
+  ansible.builtin.set_fact:
+    nginx_custom_port: "{{ nginx_port | int != 80 }}"
+
+- name: Show nginx version info (debug)
+  ansible.builtin.debug:
+    msg: >-
+      Installed: {{ nginx_installed_version }},
+      Latest available: {{ nginx_latest_version }},
+      Is latest: {{ nginx_is_latest }},
+      Port: {{ nginx_port }},
+      Custom port: {{ nginx_custom_port }}
+
+# ---------------------------------------------------------
+# 6. Copy static images to web root
+# ---------------------------------------------------------
+- name: Copy default.png to web root
+  ansible.builtin.copy:
+    src: default.png
+    dest: /usr/share/nginx/html/default.png
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy latest.png to web root
+  ansible.builtin.copy:
+    src: latest.png
+    dest: /usr/share/nginx/html/latest.png
+    owner: root
+    group: root
+    mode: "0644"
+
+# ---------------------------------------------------------
+# 7. Deploy configuration from templates
+# ---------------------------------------------------------
+- name: Deploy nginx.conf
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart nginx
+
+- name: Deploy index.html
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
+    owner: root
+    group: root
+    mode: "0644"
+
+# ---------------------------------------------------------
+# 8. SELinux – allow custom port
+# ---------------------------------------------------------
+- name: Install policycoreutils-python-utils for SELinux management
+  ansible.builtin.dnf:
+    name: policycoreutils-python-utils
+    state: present
+  when: nginx_custom_port | bool
+
+- name: Allow nginx to bind to custom port in SELinux
+  ansible.builtin.command:
+    cmd: "semanage port -a -t http_port_t -p tcp {{ nginx_port }}"
+  register: selinux_port_result
+  changed_when: selinux_port_result.rc == 0
+  failed_when:
+    - selinux_port_result.rc != 0
+    - "'already defined' not in selinux_port_result.stderr"
+  when: nginx_custom_port | bool
+
+# ---------------------------------------------------------
+# 9. Firewall – ensure the port is reachable
+# ---------------------------------------------------------
+- name: Install firewalld
+  ansible.builtin.dnf:
+    name: firewalld
+    state: present
+
+- name: Enable and start firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: Open nginx port in firewalld
+  ansible.posix.firewalld:
+    port: "{{ nginx_port }}/tcp"
+    permanent: true
+    immediate: true
+    state: enabled
+
+# ---------------------------------------------------------
+# 10. Enable and start nginx
+# ---------------------------------------------------------
+- name: Enable and start nginx service
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+
+# ---------------------------------------------------------
+# 11. Verify accessibility from the control node
+# ---------------------------------------------------------
+- name: Verify nginx is responding
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:{{ nginx_port }}/"
+    return_content: false
+    status_code: 200
+  delegate_to: localhost
+  become: false
+  register: nginx_check
+  retries: 3
+  delay: 5
+  until: nginx_check.status == 200
