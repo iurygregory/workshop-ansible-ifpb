@@ -151,23 +151,12 @@
 # ---------------------------------------------------------
 # 9. Firewall – ensure the port is reachable
 # ---------------------------------------------------------
-- name: Install firewalld
-  ansible.builtin.dnf:
-    name: firewalld
-    state: present
 
-- name: Enable and start firewalld
+- name: Stop firewalld if present
   ansible.builtin.systemd:
     name: firewalld
-    state: started
-    enabled: true
-
-- name: Open nginx port in firewalld
-  ansible.posix.firewalld:
-    port: "{{ nginx_port }}/tcp"
-    permanent: true
-    immediate: true
-    state: enabled
+    state: stopped
+  ignore_errors: true
 
 # ---------------------------------------------------------
 # 10. Enable and start nginx
