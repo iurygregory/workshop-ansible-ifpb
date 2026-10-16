@@ -1,19 +1,19 @@
-= Workshop - Ansible na pratica: O simples que resolve
+= Workshop - Ansible na prática: O simples que resolve
 
-Bem-vindo ao workshop de Ansible do IFPB! Neste workshop voce vai aprender a usar o Ansible para automatizar a instalacao e configuracao do nginx em uma maquina virtual CentOS Stream 10.
+Bem-vindo ao workshop de Ansible do IFPB! Neste workshop voce vai aprender a usar o Ansible para automatizar a instalação e configuração do nginx em uma máquina virtual CentOS Stream 10.
 
 == O que este Workshop Cobre
 
-* Conceitos basicos de Ansible (inventario, playbooks, roles)
+* Conceitos básicos de Ansible (inventario, playbooks, roles)
 * Instalacao e configuracao do nginx via Ansible
-* Controle de versao do nginx (repositorio padrao vs. oficial)
-* Configuracao de porta customizada
-* Interacao com firewalld e SELinux
-* Verificacao automatica de acessibilidade
+* Controle de versão do nginx (repositório padrao vs. oficial)
+* Configuração de porta customizada
+* Interação com firewalld e SELinux
+* Verificação automática de acessibilidade
 
 == Para Quem e Este Workshop
 
-Estudantes de computacao e tecnologia que desejam aprender automacao de infraestrutura com Ansible. Nao e necessario conhecimento previo de Ansible.
+Estudantes que desejam aprender automação de infraestrutura com Ansible. Não é necessario conhecimento previo de Ansible.
 
 == Estrutura do Workshop
 
@@ -23,7 +23,7 @@ Estudantes de computacao e tecnologia que desejam aprender automacao de infraest
 
 |01
 |xref:01-setup.adoc[Preparando o Ambiente]
-|Configuracao das VMs e instalacao do Ansible
+|Configuração das VMs e instalação do Ansible
 
 |02
 |xref:02-inventory.adoc[Inventario Ansible]
@@ -35,12 +35,12 @@ Estudantes de computacao e tecnologia que desejam aprender automacao de infraest
 
 |04
 |xref:04-customization.adoc[Personalizando o nginx]
-|Alterando versao e porta do nginx e observando o resultado
+|Alterando versão e porta do nginx e observando o resultado
 |===
 
 == Ambiente
 
-Cada estudante tem acesso a duas maquinas virtuais:
+Cada estudante tem acesso a duas máquinas virtuais:
 
 [cols="1,2,3",options="header"]
 |===
@@ -64,9 +64,9 @@ graph LR
 
 == Como Usar Este Material
 
-Este workshop e auto-guiado. Siga os modulos na ordem listada na barra de navegacao a esquerda. Cada modulo contem instrucoes passo-a-passo e exemplos praticos.
+Este workshop e auto-guiado. Siga os modulos na ordem listada na barra de navegação a esquerda. Cada módulo contem instruções passo-a-passo e exemplos práticos.
 
 [TIP]
 ====
-Use o menu de navegacao a esquerda para avancar entre os modulos. Os botoes "Previous" e "Next" no final de cada pagina tambem ajudam na navegacao.
+Use o menu de navegação a esquerda para avancar entre os modulos. Os botões "Previous" e "Next" no final de cada página tambem ajudam na navegação.
 ====
