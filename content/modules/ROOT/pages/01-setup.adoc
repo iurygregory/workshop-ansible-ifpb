@@ -1,8 +1,8 @@
 = Preparando o Ambiente
 
-Antes de comecar, precisamos garantir que o ambiente esta pronto.
+Antes de começar, precisamos garantir que o ambiente esta pronto.
 
-== Pre-requisitos
+== Pré-requisitos
 
 * Acesso SSH da VM 1 (control node) para a VM 2 (managed node)
 * CentOS Stream 10 em ambas as VMs
@@ -16,7 +16,7 @@ Conecte-se na VM 1 e execute:
 sudo dnf install -y ansible-core
 ----
 
-Verifique a instalacao:
+Verifique a instalação:
 
 [source,bash]
 ----
@@ -27,14 +27,10 @@ ansible --version
 
 [source,bash]
 ----
-git clone <REPO_URL>
+git clone https://github.com/iurygregory/workshop-ansible-ifpb.git
 cd workshop-ansible-ifpb
 ----
 
-[NOTE]
-====
-Substitua `<REPO_URL>` pela URL do repositorio fornecida pelo instrutor.
-====
 
 == Testando a Conectividade
 
@@ -54,10 +50,10 @@ ssh <usuario>@<IP_DA_VM2>
 
 [TIP]
 ====
-Se usar autenticacao por senha, instale o `sshpass` na VM 1:
+Para saber os IPs de cada máquina virtual utilize o comando abaixo:
 
 [source,bash]
 ----
-sudo dnf install -y sshpass
+ip -c a
 ----
 ====
