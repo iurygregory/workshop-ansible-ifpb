@@ -11,7 +11,7 @@ Bem-vindo ao workshop de Ansible do IFPB! Neste workshop voce vai aprender a usa
 * Interação com firewalld e SELinux
 * Verificação automática de acessibilidade
 
-== Para Quem e Este Workshop
+== Para Quem é Este Workshop ?
 
 Estudantes que desejam aprender automação de infraestrutura com Ansible. Não é necessario conhecimento previo de Ansible.
 
@@ -44,7 +44,7 @@ Cada estudante tem acesso a duas máquinas virtuais:
 
 [cols="1,2,3",options="header"]
 |===
-|VM |Funcao |Descricao
+|VM |Funcao |Descrição
 
 |VM 1
 |**Control Node**
@@ -64,9 +64,9 @@ graph LR
 
 == Como Usar Este Material
 
-Este workshop e auto-guiado. Siga os modulos na ordem listada na barra de navegação a esquerda. Cada módulo contem instruções passo-a-passo e exemplos práticos.
+Este workshop é auto-guiado. Siga os modulos na ordem listada na barra de navegação a esquerda. Cada módulo contém instruções passo-a-passo e exemplos práticos.
 
 [TIP]
 ====
-Use o menu de navegação a esquerda para avancar entre os modulos. Os botões "Previous" e "Next" no final de cada página tambem ajudam na navegação.
+Use o menu de navegação a esquerda para avancar entre os módulos. Os botões "Previous" e "Next" no final de cada página tambem ajudam na navegação.
 ====
