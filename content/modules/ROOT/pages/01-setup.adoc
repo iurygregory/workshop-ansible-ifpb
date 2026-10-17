@@ -7,6 +7,16 @@ Antes de começar, precisamos garantir que o ambiente esta pronto.
 * Acesso SSH da VM 1 (control node) para a VM 2 (managed node)
 * CentOS Stream 10 em ambas as VMs
 
+== Configurando SSH nas VMs
+
+Conecte-se na VM e execute:
+
+[source,bash]
+----
+ssh-keygen
+ssh-copy-id
+----
+
 == Instalando o Ansible na VM 1
 
 Conecte-se na VM 1 e execute:
@@ -23,7 +33,7 @@ Verifique a instalação:
 ansible --version
 ----
 
-== Clonando o Repositorio
+== Clonando o Repositório
 
 [source,bash]
 ----
@@ -48,7 +58,7 @@ Teste o acesso SSH:
 ssh <usuario>@<IP_DA_VM2>
 ----
 
-[TIP]
+[DICA]
 ====
 Para saber os IPs de cada máquina virtual utilize o comando abaixo:
 
