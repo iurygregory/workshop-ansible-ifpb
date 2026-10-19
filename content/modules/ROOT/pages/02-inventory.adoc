@@ -2,15 +2,15 @@
 
 O inventário define quais máquinas o Ansible vai gerenciar e como se conectar a elas.
 
-== O que e um Inventario?
+== O que é um Inventário?
 
-O inventário e um arquivo que lista os hosts (máquinas) que o Ansible vai configurar. Ele pode ser um simples arquivo INI ou um arquivo YAML.
+O inventário é um arquivo que lista os hosts (máquinas) que o Ansible vai configurar. Ele pode ser um simples arquivo INI ou um arquivo YAML.
 
-== Configurando o Inventario
+== Configurando o Inventário
 
 Edite o arquivo `inventory/hosts.ini` com os dados da sua VM 2.
 
-=== Opcao A: Autenticacao por Chave SSH (recomendado)
+=== Opcao A: Autenticação por Chave SSH (recomendado)
 
 [source,ini]
 ----
@@ -18,7 +18,7 @@ Edite o arquivo `inventory/hosts.ini` com os dados da sua VM 2.
 vm2 ansible_host=192.168.56.11 ansible_user=seu_usuario ansible_ssh_private_key_file=~/.ssh/id_rsa
 ----
 
-=== Opcao B: Autenticacao por Senha
+=== Opcao B: Autenticação por Senha
 
 [source,ini]
 ----
@@ -43,8 +43,8 @@ nginx_port: 80
 
 Essas variáveis controlam:
 
-* `nginx_enable_official_repo` -- se `false`, instala o nginx do repositório padrão do CentOS. Se `true`, adiciona o repositorio oficial do nginx.org.
-* `nginx_port` -- porta em que o nginx vai escutar. Padrao: `80`.
+* `nginx_enable_official_repo` -- se `false`, instala o nginx do repositório padrão do CentOS. Se `true`, adiciona o repositório oficial do nginx.org.
+* `nginx_port` -- porta em que o nginx vai escutar. Padrão: `80`.
 
 == Testando o Inventário
 
@@ -55,7 +55,7 @@ Verifique se o Ansible consegue se conectar:
 ansible webservers -m ping -K
 ----
 
-Voce deve ver uma resposta `SUCCESS` em verde:
+Você deve ver uma resposta `SUCCESS` em verde:
 
 [source]
 ----

@@ -1,10 +1,10 @@
 = Personalizando o nginx
 
-Agora vem a parte divertida! Vamos alterar a versao e a porta do nginx e observar como a pagina web muda.
+Agora vem a parte divertida! Vamos alterar a versão e a porta do Nginx e observar como a página web muda.
 
-== Cenario 1: Porta Padrao (80) + Versao Padrao
+== Cenario 1: Porta Padrão (80) + Versão Padrão
 
-Este e o estado inicial. A pagina mostra a imagem `default.png`.
+Este é o estado inicial. A pagina mostra a imagem `default.png`.
 
 [source,bash]
 ----
@@ -13,9 +13,9 @@ ansible-playbook playbooks/site.yml
 
 Acesse: `http://<IP_DA_VM2>:80`
 
-Resultado esperado: imagem padrao.
+Resultado esperado: imagem padrão.
 
-== Cenario 2: Porta Customizada + Versao Padrao
+== Cenario 2: Porta Customizada + Versão Padrao
 
 Mude a porta para 8080:
 
@@ -26,14 +26,14 @@ ansible-playbook playbooks/site.yml -e nginx_port=8080
 
 Acesse: `http://<IP_DA_VM2>:8080`
 
-Resultado esperado: mensagem de aviso pedindo para instalar a versao mais recente do nginx.
+Resultado esperado: mensagem de aviso pedindo para instalar a versão mais recente do nginx.
 
 [NOTE]
 ====
 O playbook configura automaticamente o SELinux e o firewall para permitir a nova porta.
 ====
 
-== Cenario 3: Porta Customizada + Versao Mais Recente
+== Cenario 3: Porta Customizada + Versão Mais Recente
 
 Agora ative o repositorio oficial do nginx.org e use uma porta customizada:
 
@@ -44,21 +44,21 @@ ansible-playbook playbooks/site.yml -e nginx_enable_official_repo=true -e nginx_
 
 Acesse: `http://<IP_DA_VM2>:8080`
 
-Resultado esperado: mensagem de parabens com a imagem `latest.png`.
+Resultado esperado: mensagem de parabéns com a imagem `latest.png`.
 
-== Resumo do Comportamento da Pagina
+== Resumo do Comportamento da Página
 
 [cols="2,2,3",options="header"]
 |===
-|Porta |Versao nginx |Pagina
+|Porta |Versão nginx |Página
 
-|Padrao (80)
+|Padrão (80)
 |Qualquer
 |Imagem `default.png`
 
 |Customizada
-|Nao e a mais recente
-|Mensagem pedindo atualizacao
+|Não é a mais recente
+|Mensagem pedindo atualização
 
 |Customizada
 |Mais recente
@@ -69,8 +69,8 @@ Resultado esperado: mensagem de parabens com a imagem `latest.png`.
 ....
 graph TD
     A{"Porta customizada?"} -->|Nao| B["Mostra default.png"]
-    A -->|Sim| C{"nginx e a versao mais recente?"}
-    C -->|Nao| D["Mostra aviso de atualizacao"]
+    A -->|Sim| C{"Nginx e a versão mais recente?"}
+    C -->|Nao| D["Mostra aviso de atualização"]
     C -->|Sim| E["Mostra latest.png"]
 ....
 
@@ -78,11 +78,11 @@ graph TD
 
 Tente as seguintes combinacoes e observe o resultado:
 
-1. Volte para a porta padrao mantendo o repositorio oficial
-2. Use a porta 9090 sem o repositorio oficial
-3. Use a porta 443 com o repositorio oficial
+1. Volte para a porta padrão mantendo o repositório oficial
+2. Use a porta 9090 sem o repositório oficial
+3. Use a porta 443 com o repositório oficial
 
 [TIP]
 ====
-Voce pode editar as variaveis diretamente no arquivo `inventory/group_vars/webservers.yml` em vez de passar pela linha de comando com `-e`.
+Voce pode editar as variáveis diretamente no arquivo `inventory/group_vars/webservers.yml` em vez de passar pela linha de comando com `-e`.
 ====

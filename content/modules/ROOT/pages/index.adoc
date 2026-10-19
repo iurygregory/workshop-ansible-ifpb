@@ -2,24 +2,24 @@
 
 Bem-vindo ao workshop de Ansible do IFPB! Neste workshop voce vai aprender a usar o Ansible para automatizar a instalação e configuração do nginx em uma máquina virtual CentOS Stream 10.
 
-== O que este Workshop Cobre
+== O Que Este Workshop Cobre
 
 * Conceitos básicos de Ansible (inventario, playbooks, roles)
-* Instalacao e configuracao do nginx via Ansible
-* Controle de versão do nginx (repositório padrao vs. oficial)
+* Instalação e configuração do Nginx via Ansible
+* Controle de versão do Nginx (repositório padrão vs. oficial)
 * Configuração de porta customizada
 * Interação com firewalld e SELinux
 * Verificação automática de acessibilidade
 
 == Para Quem é Este Workshop ?
 
-Estudantes que desejam aprender automação de infraestrutura com Ansible. Não é necessario conhecimento previo de Ansible.
+Estudantes que desejam aprender automação de infraestrutura com Ansible. Não é necessário conhecimento prévio de Ansible.
 
 == Estrutura do Workshop
 
 [cols="1,2,4",options="header"]
 |===
-|Modulo |Titulo |Descricao
+|Módulo |Título |Descrição
 
 |01
 |xref:01-setup.adoc[Preparando o Ambiente]
@@ -44,15 +44,15 @@ Cada estudante tem acesso a duas máquinas virtuais:
 
 [cols="1,2,3",options="header"]
 |===
-|VM |Funcao |Descrição
+|VM |Função |Descrição
 
 |VM 1
 |**Control Node**
-|Onde voce executa os comandos Ansible
+|Onde você executa os comandos Ansible
 
 |VM 2
 |**Managed Node**
-|O servidor que vai rodar o nginx
+|O servidor que vai rodar o Nginx
 |===
 
 [mermaid]
@@ -64,9 +64,9 @@ graph LR
 
 == Como Usar Este Material
 
-Este workshop é auto-guiado. Siga os modulos na ordem listada na barra de navegação a esquerda. Cada módulo contém instruções passo-a-passo e exemplos práticos.
+Este workshop é auto-guiado. Siga os módulos na ordem listada na barra de navegação à esquerda. Cada módulo contém instruções passo-a-passo e exemplos práticos.
 
 [TIP]
 ====
-Use o menu de navegação a esquerda para avancar entre os módulos. Os botões "Previous" e "Next" no final de cada página tambem ajudam na navegação.
+Use o menu de navegação à esquerda para avançar entre os módulos. Os botões "Previous" e "Next" no final de cada página tambem ajudam na navegação.
 ====
