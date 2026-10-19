@@ -163,6 +163,11 @@
 # 9. Firewall – ensure the port is reachable
 # ---------------------------------------------------------
 
+- name: Ensure firewalld is running
+  ansible.builtin.systemd:
+    name: firewalld
+    state: started
+
 - name: Open nginx port in firewalld (permanent)
   ansible.builtin.command:
     cmd: "firewall-cmd --permanent --add-port={{ nginx_port }}/tcp"
