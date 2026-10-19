@@ -9,37 +9,24 @@ Antes de começar, precisamos garantir que o ambiente está pronto.
 
 == Configurando SSH nas VMs
 
-Conecte-se à VM e execute:
+Conecte-se à VM1 para criar uma chave SSH, em seguida copie
+a chave para a VM2.
 
 [source,bash]
 ----
 ssh-keygen
-ssh-copy-id
+ssh-copy-id <usuário> @ <IP-VM2>
 ----
 
-== Instalando o Ansible na VM 1
-
-Conecte-se à VM 1 e execute:
-
-[source,bash]
-----
-sudo dnf install -y ansible-core
-----
-
-Verifique a instalação:
+[DICA]
+====
+Para saber os IPs de cada máquina virtual utilize o comando abaixo:
 
 [source,bash]
 ----
-ansible --version
+ip -c a
 ----
-
-== Clonando o Repositório
-
-[source,bash]
-----
-git clone https://github.com/iurygregory/workshop-ansible-ifpb.git
-cd workshop-ansible-ifpb
-----
+===
 
 
 == Testando a Conectividade
@@ -58,12 +45,28 @@ Teste o acesso SSH:
 ssh <usuario>@<IP_DA_VM2>
 ----
 
-[DICA]
-====
-Para saber os IPs de cada máquina virtual utilize o comando abaixo:
+== Instalando o Ansible e Git na VM 1
+
+Conecte-se à VM 1 e execute:
 
 [source,bash]
 ----
-ip -c a
+sudo dnf install -y ansible-core git
 ----
-====
+
+Verifique a instalação:
+
+[source,bash]
+----
+ansible --version
+git --version
+----
+
+== Clonando o Repositório
+
+[source,bash]
+----
+git clone https://github.com/iurygregory/workshop-ansible-ifpb.git
+cd workshop-ansible-ifpb
+----
+
