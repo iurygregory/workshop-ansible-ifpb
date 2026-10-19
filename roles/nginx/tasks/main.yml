@@ -32,10 +32,20 @@
 # ---------------------------------------------------------
 # 2. Install nginx
 # ---------------------------------------------------------
+- name: Remove AppStream nginx packages before switching to nginx.org repo
+  ansible.builtin.dnf:
+    name:
+      - nginx
+      - nginx-core
+      - nginx-filesystem
+    state: absent
+  when: nginx_enable_official_repo | bool
+
 - name: Install nginx
   ansible.builtin.dnf:
     name: nginx
-    state: present
+    state: "{{ 'latest' if nginx_enable_official_repo | bool else 'present' }}"
+    allow_downgrade: true
 
 # ---------------------------------------------------------
 # 3. Detect installed nginx version
@@ -60,7 +70,7 @@
       | awk '/^nginx\./ {print $2}'
       | sort -V
       | tail -1
-      | sed 's/-.*//'
+      | sed 's/-.*//; s/.*://'
   register: nginx_latest_version_raw
   changed_when: false
   failed_when: false
@@ -147,16 +157,22 @@
     - selinux_port_result.rc != 0
     - "'already defined' not in selinux_port_result.stderr"
   when: nginx_custom_port | bool
+  notify: Restart nginx
 
 # ---------------------------------------------------------
 # 9. Firewall – ensure the port is reachable
 # ---------------------------------------------------------
 
-- name: Stop firewalld if present
-  ansible.builtin.systemd:
-    name: firewalld
-    state: stopped
-  ignore_errors: true
+- name: Open nginx port in firewalld (permanent)
+  ansible.builtin.command:
+    cmd: "firewall-cmd --permanent --add-port={{ nginx_port }}/tcp"
+  register: firewalld_perm
+  changed_when: "'ALREADY_ENABLED' in firewalld_perm.stderr"
+
+- name: Reload firewalld to apply changes
+  ansible.builtin.command:
+    cmd: firewall-cmd --reload
+  changed_when: true
 
 # ---------------------------------------------------------
 # 10. Enable and start nginx
@@ -168,7 +184,13 @@
     enabled: true
 
 # ---------------------------------------------------------
-# 11. Verify accessibility from the control node
+# 11. Flush handlers before verification
+# ---------------------------------------------------------
+- name: Flush handlers (ensure nginx is restarted before verification)
+  ansible.builtin.meta: flush_handlers
+
+# ---------------------------------------------------------
+# 12. Verify accessibility from the control node
 # ---------------------------------------------------------
 - name: Verify nginx is responding
   ansible.builtin.uri:
