@@ -1,15 +1,15 @@
 = Preparando o Ambiente
 
-Antes de começar, precisamos garantir que o ambiente esta pronto.
+Antes de começar, precisamos garantir que o ambiente está pronto.
 
 == Pré-requisitos
 
-* Acesso SSH da VM 1 (control node) para a VM 2 (managed node)
+* Acesso SSH à VM 1 (control node) para a VM 2 (managed node)
 * CentOS Stream 10 em ambas as VMs
 
 == Configurando SSH nas VMs
 
-Conecte-se na VM e execute:
+Conecte-se à VM e execute:
 
 [source,bash]
 ----
@@ -19,7 +19,7 @@ ssh-copy-id
 
 == Instalando o Ansible na VM 1
 
-Conecte-se na VM 1 e execute:
+Conecte-se à VM 1 e execute:
 
 [source,bash]
 ----
