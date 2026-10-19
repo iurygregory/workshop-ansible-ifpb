@@ -40,24 +40,25 @@
     <div class="container">
 {% if not nginx_custom_port | bool %}
         <h1>Welcome to the Ansible Workshop!</h1>
-        <p>nginx is running on the default port ({{ nginx_port }}).</p>
+        <p>Nginx is running on the default port ({{ nginx_port }}).</p>
         <img src="default.png" alt="Default configuration">
 {% elif not nginx_is_latest | bool %}
         <div class="warning">
             <h1>Almost there!</h1>
             <p>
-                nginx is running on custom port <strong>{{ nginx_port }}</strong>,
+                Nginx is running on custom port <strong>{{ nginx_port }}</strong>,
                 but you are using version <strong>{{ nginx_installed_version }}</strong>.
             </p>
             <p>
                 The latest available version is <strong>{{ nginx_latest_version }}</strong>.
-                Please update your configuration to install the latest version of nginx!
+                Please update your configuration to install the latest version of nginx from
+                the official repo!
             </p>
         </div>
 {% else %}
         <h1>Congratulations!</h1>
         <p>
-            nginx <strong>{{ nginx_installed_version }}</strong> is running on
+            Nginx <strong>{{ nginx_installed_version }}</strong> is running on
             custom port <strong>{{ nginx_port }}</strong> &mdash; you nailed it!
         </p>
         <img src="latest.png" alt="Latest version with custom port">
