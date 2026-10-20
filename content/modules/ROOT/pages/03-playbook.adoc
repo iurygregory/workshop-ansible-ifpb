@@ -71,3 +71,9 @@ No final, voce vera um resumo:
 PLAY RECAP *************
 vm2  : ok=15  changed=8  unreachable=0  failed=0  skipped=2  rescued=0  ignored=0
 ----
+
+[IMPORTANT]
+====
+Playbooks costumam ser idempotentes, isto é, independente do número de
+execuções, o resultado será o mesmo -- a máquina virtual terá um Nginx funcionando.
+====
