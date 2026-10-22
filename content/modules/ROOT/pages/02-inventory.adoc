@@ -28,7 +28,9 @@ Edite o arquivo `inventory/hosts.ini` com os dados da sua VM 2.
 
 [IMPORTANT]
 ====
-Escolha uma das opções  e atribua as informações corretas aos campos que estão entre `<` e `>`. 
+Escolha uma das opções  e atribua as informações corretas aos campos que estão entre `<` e `>`.
+Remova os símbolos `<` e `>`. 
+Exemplo: `<nome VM2>` --> `minhavm2`
 ====
 
 == Variáveis do Grupo
