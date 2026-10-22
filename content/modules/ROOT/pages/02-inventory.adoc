@@ -15,7 +15,7 @@ Edite o arquivo `inventory/hosts.ini` com os dados da sua VM 2.
 [source,ini]
 ----
 [webservers]
-<nome VM2> ansible_host=<IP VM2> ansible_user=<usuário> ansible_ssh_private_key_file=<~/.ssh/id_rsa>
+<nome VM2> ansible_host=<IP VM2> ansible_user=<usuário> 
 ----
 
 === Opcao B: Autenticação por Senha

@@ -42,16 +42,33 @@ Teste o acesso SSH:
 
 [source,bash]
 ----
-ssh <usuario>@<IP_DA_VM2>
+ssh <usuario>@<IP_DA_VM2> -- "echo "SSH para a VM2 Funcionou!" > ~/feedback; cat ~/feedback"
 ----
 
 == Instalando o Ansible e Git na VM 1
 
-Conecte-se à VM 1 e execute:
+Ainda conectado à VM1, execute:
 
 [source,bash]
 ----
 sudo dnf install -y ansible-core git
+----
+
+Caso esteja enfrentando problemas para instalar ansible com o comando anterior, utilize o seguinte método:
+
+- Crie um ambiente virtual:
+
+[source,bash]
+----
+python3 -m venv ansible
+----
+
+- Instale ansible utilizando o pacote pip:
+
+[source,bash]
+----
+source ansible/bin/activate
+pip install ansible-core ansible
 ----
 
 Verifique a instalação:
@@ -69,4 +86,3 @@ git --version
 git clone https://github.com/iurygregory/workshop-ansible-ifpb.git
 cd workshop-ansible-ifpb
 ----
-
